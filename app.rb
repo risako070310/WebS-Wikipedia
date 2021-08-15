@@ -5,9 +5,12 @@ require 'sinatra/reloader' if development?
 require 'net/http'
 require 'uri'
 
-get '/:keyword' do
+get '/' do
     base_url = 'https://lit-wikipedia-api.herokuapp.com/?keyword='
-    keyword = params[:keyword]
-    url = URI.parse(base_url + keyword)
-    Net::HTTP.get(url)
+    if params[:keyword]
+        keyword = URI.encode_www_form_component(params[:keyword])
+        url = URI.parse(base_url + keyword)
+        @result = Net::HTTP.get(url).force_encoding("utf-8")
+    end
+    erb :index
 end
