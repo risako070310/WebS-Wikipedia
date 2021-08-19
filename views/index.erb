@@ -6,14 +6,26 @@
 	<style>
 		body{
 			font-family: "游ゴシック", "Yu Gothic", YuGothic, sans-serif;
+			background-color: #d1f6ff;
 		}
+		.submit{
+			color: #fff;
+			background-color: #9cc1df;
+			padding: 5px 20px;
+			border: none;
+			border-radius: 20px;
+		}
+		
 	</style>
 </head>
 <body>
 	<form action="/" method="get">
 		<input type="text" name="keyword">
-		<input type="submit" value="検索">
+		<input class="submit" type="submit" value="検索">
 	</form>
 	<%= @result %>
+	<% unless @result.to_s.include?("<p>") || @keyword.to_s.empty? then %>
+		<%= "#{@keyword} の検索結果がありません" %>
+	<% end %>
 </body>
 </html>

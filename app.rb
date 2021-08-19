@@ -11,6 +11,7 @@ get '/' do
         keyword = URI.encode_www_form_component(params[:keyword])
         url = URI.parse(base_url + keyword)
         @result = Net::HTTP.get(url).force_encoding("utf-8")
+        @keyword = params[:keyword]
     end
     erb :index
 end
